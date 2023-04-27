@@ -5,12 +5,14 @@ const ONE_HOUR = 60_000 * 60;
 const RIBBON_BADGE_CLASS = "shahor-throwback-plugin-display-badge";
 
 export class ThrowbackPlugin extends Plugin {
+	#hasThrowbacks = false;
 	#ribbon: HTMLElement | undefined;
 	#abortController: AbortController | undefined;
 
 	async onload() {
 		this.#abortController = new AbortController();
 
+		this.setupRibbon();
 		this.refreshThrowbacks();
 		/**
 		 Poll every hour for new throwbacks.
@@ -22,17 +24,14 @@ export class ThrowbackPlugin extends Plugin {
 		);
 	}
 
-	async refreshThrowbacks() {
-		const throwbacks = getThrowbackNotes(this.app.vault);
-		const hasThrowbacks = throwbacks.length;
-
+	setupRibbon() {
 		if (!this.#ribbon) {
 			this.#ribbon = this.addRibbonIcon(
 				"dice",
 				"Throwback plugin",
 				() => {
 					// Called when the user clicks the icon.
-					if (!hasThrowbacks) {
+					if (!this.#hasThrowbacks) {
 						new Notice(`No throwbacks today 😢.
 Try again tomorrow?`);
 						return;
@@ -42,23 +41,32 @@ Try again tomorrow?`);
 				}
 			);
 		}
+	}
 
-		if (hasThrowbacks) {
+	async refreshThrowbacks() {
+		const throwbacks = getThrowbackNotes(this.app.vault);
+		this.#hasThrowbacks = Boolean(throwbacks.length);
+
+		if (!this.#hasThrowbacks) {
+			return;
+		}
+
+		if (this.#ribbon) {
 			this.#ribbon.classList.add(RIBBON_BADGE_CLASS);
 			this.#ribbon.dataset.badge = `${throwbacks.length}`;
-
-			const fragment = document.createDocumentFragment();
-			const div = fragment.createEl("div", {
-				text: `You have ${throwbacks.length} throwbacks today! Click me to open them all.`,
-			});
-
-			div.addEventListener("click", this.openThrowbacks.bind(this), {
-				once: true,
-				signal: this.#abortController?.signal,
-			});
-
-			new Notice(fragment, 5_000);
 		}
+
+		const fragment = document.createDocumentFragment();
+		const div = fragment.createEl("div", {
+			text: `You have ${throwbacks.length} throwbacks today! Click me to open them all.`,
+		});
+
+		div.addEventListener("click", this.openThrowbacks.bind(this), {
+			once: true,
+			signal: this.#abortController?.signal,
+		});
+
+		new Notice(fragment, 5_000);
 	}
 
 	async openThrowbacks() {
