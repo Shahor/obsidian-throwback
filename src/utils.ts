@@ -16,10 +16,12 @@ function isThrowbackFile(
 
 	const isSameMonth = referenceDate.getMonth() === creationDate.getMonth();
 	const isSameDay = referenceDate.getDate() === creationDate.getDate();
+	const isInPastYears =
+		referenceDate.getFullYear() > creationDate.getFullYear();
 
 	// We'll be returning all throwbacks that have occured in the same day,
 	// regardless of the year
-	return isSameDay && isSameMonth;
+	return isSameDay && isSameMonth && isInPastYears;
 }
 
 export function getThrowbackNotes(vault: Vault) {

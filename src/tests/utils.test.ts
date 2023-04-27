@@ -38,6 +38,9 @@ const vault: Vault = {
 	getFiles() {
 		return [
 			buildFile({
+				date: buildThrowbackFromNow({ yearsBack: 0 }),
+			}),
+			buildFile({
 				date: buildThrowbackFromNow({ yearsBack: 10 }),
 			}),
 			buildFile(),
@@ -63,6 +66,10 @@ it(`Gets all throwbacks from the vault from most recent to oldest`, function () 
 	Length is as expected when we select only throwbacks of md format
 	*/
 	assert.equal(throwbacks.length, 3);
+	assert.ok(
+		new Date().getFullYear() >
+			new Date(throwbacks[0].stat.ctime).getFullYear()
+	);
 	assert.ok(throwbacks[0].stat.ctime > throwbacks[1].stat.ctime);
 	assert.ok(throwbacks[1].stat.ctime > throwbacks[2].stat.ctime);
 });

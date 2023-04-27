@@ -1,8 +1,5 @@
 import { Notice, Plugin } from "obsidian";
 
-import { SampleModal } from "./sample-modal";
-import { SampleSettingTab } from "./sample-settings";
-
 interface MyPluginSettings {
 	mySetting: string;
 }
@@ -25,25 +22,9 @@ export class MyPlugin extends Plugin {
 		// Perform additional things with the ribbon
 		ribbonIconEl.addClass("my-plugin-ribbon-class");
 
-		const files = this.app.vault.getFiles();
-		console.log(files);
-		// This adds a simple command that can be triggered anywhere
-		this.addCommand({
-			id: "open-sample-modal-simple",
-			name: "Open sample modal (simple)",
-			callback: () => {
-				new SampleModal(this.app).open();
-			},
-		});
+		// const throwbacks = getThrowbackNotes(this.app.vault);
 
-		// This adds a settings tab so the user can configure various aspects of the plugin
-		this.addSettingTab(new SampleSettingTab(this.app, this));
-
-		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
-		// Using this function will automatically remove the event listener when this plugin is disabled.
-		this.registerDomEvent(document, "click", (evt: MouseEvent) => {
-			console.log("click", evt);
-		});
+		// console.log(throwbacks);
 	}
 
 	onunload() {}
