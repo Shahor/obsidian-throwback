@@ -1,5 +1,5 @@
-import { MyPlugin } from "src/core";
+import { ThrowbackPlugin } from "src/core";
 
 // Remember to rename these classes and interfaces!
 
-export default MyPlugin;
+export default ThrowbackPlugin;

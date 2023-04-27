@@ -2,7 +2,7 @@
 	"name": "obsidian-throwback",
 	"type": "module",
 	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"description": "This is a throwback to the past plugin. It'll help be aware of notes written the same day in the past.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",

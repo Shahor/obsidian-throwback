@@ -1,8 +1,15 @@
-/*
+.shahor-throwback-plugin-display-badge {
+	position: relative;
+}
 
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
+.shahor-throwback-plugin-display-badge::after {
+	font-size: var(--font-size-secondary);
+	color: hsl(var(--base-h), var(--base-s), var(--base-l));
 
-If your plugin does not need CSS, delete this file.
+	content: attr(data-badge);
 
-*/
+	display: inline-block;
+	position: absolute;
+	top: -5px;
+	right: 0px;
+}
