@@ -6,17 +6,17 @@
 import type { TFile, Vault } from "obsidian";
 
 import { it } from "node:test";
-import { getThrowbackFiles } from "../utils";
+import { getThrowbackNotes } from "../utils";
 import { faker } from "@faker-js/faker";
 import { strict as assert } from "node:assert";
 
-function buildFile(options?: { date: Date }) {
+function buildFile(options?: { date: Date; extension?: string }) {
 	const createdAt = options?.date ?? faker.date.past(50);
 	const basename = faker.system.fileName({ extensionCount: 0 });
 
 	return {
 		basename,
-		extension: "md",
+		extension: options?.extension ?? "md",
 		name: `${basename}.md`,
 		stat: {
 			ctime: createdAt.getTime(),
@@ -48,13 +48,20 @@ const vault: Vault = {
 			buildFile({
 				date: buildThrowbackFromNow({ yearsBack: 30 }),
 			}),
+			buildFile({
+				date: buildThrowbackFromNow({ yearsBack: 20 }),
+				extension: "gif",
+			}),
 		];
 	},
 } as unknown as Vault;
 
 it(`Gets all throwbacks from the vault from most recent to oldest`, function () {
-	const throwbacks = getThrowbackFiles(vault);
+	const throwbacks = getThrowbackNotes(vault);
 
+	/**
+	Length is as expected when we select only throwbacks of md format
+	*/
 	assert.equal(throwbacks.length, 3);
 	assert.ok(throwbacks[0].stat.ctime > throwbacks[1].stat.ctime);
 	assert.ok(throwbacks[1].stat.ctime > throwbacks[2].stat.ctime);

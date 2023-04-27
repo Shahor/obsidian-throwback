@@ -9,6 +9,11 @@ function isThrowbackFile(
 	referenceDate: Date = new Date()
 ): boolean {
 	const creationDate = new Date(file.stat.ctime);
+
+	if (file.extension !== "md") {
+		return false;
+	}
+
 	const isSameMonth = referenceDate.getMonth() === creationDate.getMonth();
 	const isSameDay = referenceDate.getDate() === creationDate.getDate();
 
@@ -17,7 +22,7 @@ function isThrowbackFile(
 	return isSameDay && isSameMonth;
 }
 
-export function getThrowbackFiles(vault: Vault) {
+export function getThrowbackNotes(vault: Vault) {
 	const now = new Date();
 
 	return vault
