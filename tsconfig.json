@@ -5,14 +5,15 @@
 		"inlineSourceMap": true,
 		"inlineSources": true,
 		"module": "ESNext",
-		"target": "ES6",
-		"allowJs": true,
+		"target": "ESNext",
+		"allowJs": false,
 		"noImplicitAny": true,
 		"moduleResolution": "node",
 		"importHelpers": true,
 		"isolatedModules": true,
 		"strictNullChecks": true,
-		"lib": ["DOM", "ES5", "ES6", "ES7"]
+		"lib": ["DOM", "ES5", "ES6", "ES7"],
+		"skipLibCheck": true
 	},
 	"include": ["**/*.ts"]
 }
