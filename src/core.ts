@@ -1,7 +1,7 @@
 import { Notice, Plugin } from "obsidian";
 import { getThrowbackNotes } from "./utils";
 
-const ONE_HOUR = 60_000 * 60;
+const REFRESH_THROWBACK_INTERVAL = 60_000 * 60;
 const RIBBON_BADGE_CLASS = "shahor-throwback-plugin-display-badge";
 
 export class ThrowbackPlugin extends Plugin {
@@ -20,7 +20,10 @@ export class ThrowbackPlugin extends Plugin {
 		 lies if the user keep their obsidian instance constantly open.
 		 */
 		this.registerInterval(
-			window.setInterval(this.refreshThrowbacks.bind(this), ONE_HOUR)
+			window.setInterval(
+				this.refreshThrowbacks.bind(this),
+				REFRESH_THROWBACK_INTERVAL
+			)
 		);
 	}
 
