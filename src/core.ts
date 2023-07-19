@@ -9,6 +9,7 @@ export class ThrowbackPlugin extends Plugin {
 	#ribbon: HTMLElement | undefined;
 	#abortController: AbortController | undefined;
 
+	//#region Lifecycle handling
 	async onload() {
 		this.#abortController = new AbortController();
 
@@ -26,6 +27,15 @@ export class ThrowbackPlugin extends Plugin {
 			)
 		);
 	}
+
+	onunload() {
+		/**
+		 * Make sure all event listeners are removed,
+		 * just in case they were still dangling around.
+		 */
+		this.#abortController?.abort();
+	}
+	//#endregion Lifecycle handling
 
 	setupRibbon() {
 		if (!this.#ribbon) {
@@ -88,13 +98,5 @@ Try again tomorrow?`);
 				);
 			})
 		);
-	}
-
-	onunload() {
-		/**
-		 * Make sure all event listeners are removed,
-		 * just in case they were still dangling around.
-		 */
-		this.#abortController?.abort();
 	}
 }
