@@ -41,7 +41,7 @@ export class ThrowbackPlugin extends Plugin {
 		if (!this.#ribbon) {
 			this.#ribbon = this.addRibbonIcon(
 				"dice",
-				"Throwback plugin",
+				"Check for throwbacks",
 				() => {
 					// Called when the user clicks the icon.
 					if (!this.#hasThrowbacks) {
