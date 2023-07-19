@@ -39,4 +39,5 @@ jobs:
                   title: "Development Build"
                   files: |
                       main.js
+                      styles.css
                       manifest.json
