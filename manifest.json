@@ -3,8 +3,8 @@
 	"name": "Obsidian Throwback",
 	"version": "0.1",
 	"minAppVersion": "0.15.0",
-	"description": "This plugin will show throbacks of your notes.",
-	"author": "Obsidian",
+	"description": "This plugin will throw you back to your nice souvenirs from the past.",
+	"author": "Shahor",
 	"authorUrl": "https://alexandre.gaudenc.io",
 	"fundingUrl": "https://obsidian.md/pricing",
 	"isDesktopOnly": false
