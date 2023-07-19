@@ -1,5 +1,3 @@
 # Obsidian throwback plugin
 
-This plugin is not published at the moment. This is ongoing work.
-
-Use at your own discretion.
+Periodically checks for throwbacks to help you relive the nice moments you wrote about in the past.
